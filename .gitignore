@@ -7,3 +7,5 @@ models/
 .venv
 gui/
 day3-lab-chatbot-vs-react-agent.md
+.idea/
+.pytest_cache/
