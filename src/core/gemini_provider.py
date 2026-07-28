@@ -19,7 +19,17 @@ class GeminiProvider(LLMProvider):
         if system_prompt:
             full_prompt = f"System: {system_prompt}\n\nUser: {prompt}"
 
-        response = self.model.generate_content(full_prompt)
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = self.model.generate_content(full_prompt)
+                break
+            except Exception as e:
+                err_str = str(e)
+                if ("429" in err_str or "ResourceExhausted" in err_str or "quota" in err_str.lower()) and attempt < max_retries - 1:
+                    time.sleep(4)
+                    continue
+                raise e
 
         end_time = time.time()
         latency_ms = int((end_time - start_time) * 1000)

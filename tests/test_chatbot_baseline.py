@@ -54,7 +54,7 @@ def get_llm_provider():
 
     if gemini_key and not gemini_key.startswith("your_"):
         # Try various gemini model names for compatibility
-        for m_name in [model_name, "gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro"]:
+        for m_name in [model_name, "gemini-flash-latest", "gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-1.5-pro"]:
             try:
                 provider = GeminiProvider(model_name=m_name, api_key=gemini_key)
                 # Quick check if provider works

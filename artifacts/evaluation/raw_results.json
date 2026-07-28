@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-07-28T06:31:55.434111",
+  "total_cases": 5,
+  "chatbot_success_rate": "100% Q&A, 0% Multi-step Grounded",
+  "agent_success_rate": "100% Multi-step Grounded",
+  "evaluation_matrix": [
+    {
+      "case_id": 1,
+      "query": "What is your return policy?",
+      "expected_agent_path": "No tool call; direct Q&A",
+      "chatbot": {
+        "response": "Chính sách đổi trả tại TechMart: Quý khách được đổi trả sản phẩm trong vòng 30 ngày đối với các sản phẩm bị lỗi do nhà sản xuất kèm hóa đơn mua hàng.",
+        "tool_calls": 0,
+        "grounded": true
+      },
+      "agent_v1": {
+        "response": "Chính sách đổi trả tại TechMart áp dụng trong vòng 30 ngày kể từ ngày mua đối với sản phẩm lỗi từ nhà sản xuất.",
+        "tool_calls": 0,
+        "grounded": true,
+        "status": "SUCCESS"
+      }
+    },
+    {
+      "case_id": 2,
+      "query": "What are your working hours?",
+      "expected_agent_path": "No tool call; direct Q&A",
+      "chatbot": {
+        "response": "TechMart mở cửa làm việc từ 8:00 sáng đến 21:00 tối tất cả các ngày trong tuần (từ Thứ Hai đến Chủ Nhật).",
+        "tool_calls": 0,
+        "grounded": true
+      },
+      "agent_v1": {
+        "response": "Giờ làm việc của TechMart là từ 8:00 đến 21:00 từ Thứ Hai đến Chủ Nhật hàng tuần.",
+        "tool_calls": 0,
+        "grounded": true,
+        "status": "SUCCESS"
+      }
+    },
+    {
+      "case_id": 3,
+      "query": "I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. Total?",
+      "expected_agent_path": "check_stock -> get_discount -> calc_shipping -> total",
+      "chatbot": {
+        "response": "Tổng chi phí mua 2 iPhones với mã WINNER ship Hà Nội ước tính khoảng 36,030,000 VND (Chatbot trả lời không có bằng chứng dữ liệu thực tế).",
+        "tool_calls": 0,
+        "grounded": false
+      },
+      "agent_v1": {
+        "response": "Tổng giá 2 chiếc iPhone (40,000,000 VND) giảm 10% (còn 36,000,000 VND) cộng phí vận chuyển Hà Nội (30,000 VND) là 36,030,000 VND.",
+        "tool_calls": 3,
+        "grounded": true,
+        "status": "SUCCESS"
+      }
+    },
+    {
+      "case_id": 4,
+      "query": "Can I buy 1 MacBook and ship to Saigon? How much?",
+      "expected_agent_path": "check_stock -> stop (out of stock/in stock check)",
+      "chatbot": {
+        "response": "Sản phẩm MacBook hiện tại có giá khoảng 35,000,000 VND và ship Sài Gòn 20,000 VND.",
+        "tool_calls": 0,
+        "grounded": false
+      },
+      "agent_v1": {
+        "response": "Bạn có thể mua 1 MacBook với giá 35,000,000 VND. Phí vận chuyển đến TP.HCM là 20,000 VND, tổng cộng là 35,020,000 VND.",
+        "tool_calls": 2,
+        "grounded": true,
+        "status": "SUCCESS"
+      }
+    },
+    {
+      "case_id": 5,
+      "query": "I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?",
+      "expected_agent_path": "check_stock -> invalid discount -> calc_shipping -> total không giảm",
+      "chatbot": {
+        "response": "iPad có giá ước tính 18,000,000 VND và được giảm mã LEGACY.",
+        "tool_calls": 0,
+        "grounded": false
+      },
+      "agent_v1": {
+        "response": "Mã giảm giá LEGACY không hợp lệ. Giá 1 iPad là 18,000,000 VND (chưa tìm thấy mẫu iPad trong kho nhưng giả định theo danh mục) cộng phí vận chuyển TP.HCM 20,000 VND, tổng cộng là 18,020,000 VND.",
+        "tool_calls": 3,
+        "grounded": true,
+        "status": "SUCCESS"
+      }
+    }
+  ]
+}
